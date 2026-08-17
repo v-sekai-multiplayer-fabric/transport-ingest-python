@@ -35,3 +35,29 @@ Decisions and completed, verified work.
 
 - A burst of ring publishes lost its oldest sample. `iceoryx2` defaults a subscriber's buffer to
   2, so three records published back to back arrived as two. The buffer is now set explicitly.
+
+## 2026-08-17, later
+
+### Changed
+
+- The stack is `aioquic` 1.3.0 rather than `pywebtransport` 0.20.1. `aioquic` implements QUIC and
+  TLS 1.3 in Python from the RFCs and shares no code with picoquic, so the second-opinion property
+  RFD 0123 rests on is unchanged, and it loads EC keys.
+- The server accepts an EC or an RSA key. A live session with a P-256 server key answers CONNECT
+  with `:status 200`, which the previous stack could not do at all.
+
+### Found
+
+- One oversized datagram jams every datagram after it on `aioquic`. `_write_datagram_frame` breaks
+  out of the send loop without popping the queue, so the frame stays at the head forever. Measured:
+  after one 6400-byte send, three later 100-byte datagrams never arrived. The send path now refuses
+  anything over the cap rather than queueing it.
+- The datagram cap on `aioquic` is 1169 bytes, or 11 whole records, against 1161 and 11 on
+  `pywebtransport`. Two stacks sharing no code agree that a 64-record slice cannot travel in one
+  datagram, and that the binding constraint is one QUIC packet rather than the negotiated frame
+  size.
+
+### Fixed
+
+- `pywebtransport` rejected EC P-256 and P-384 server keys while `contract-wt` records the Godot
+  demo server generating P-256. `OPEN_GAPS.md` records it closed.

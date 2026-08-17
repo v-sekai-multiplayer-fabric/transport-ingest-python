@@ -1,7 +1,7 @@
 # transport-ingest-python
 
 A second implementation of the unreliable half of the fabric's WebTransport contract, on
-`pywebtransport`. It exists to disagree with `transport-ingest-c` where one of them is wrong, so
+`aioquic`. It exists to disagree with `transport-ingest-c` where one of them is wrong, so
 anything that makes the two agree by construction destroys the only thing it produces.
 
 `README.md` says what this is. Record decisions in the `multiplayer-fabric-manuals` repository.
@@ -65,6 +65,6 @@ pixi run selftest    # the same gate against corrupted input, which must fail
 pixi run serve       # terminate WebTransport on localhost
 ```
 
-The server needs an RSA key. `pywebtransport` 0.20.1 rejects EC P-256 and P-384 private keys,
-which is what `contract-wt` says the Godot demo server generates. `OPEN_GAPS.md` has the
-measurement.
+The key may be EC or RSA. `aioquic` loads P-256, P-384 and RSA-2048 alike, which is why this
+repository runs on it: `contract-wt` records the Godot demo server generating P-256, and the
+stack this replaced accepted only RSA. `OPEN_GAPS.md` has the measurement.
