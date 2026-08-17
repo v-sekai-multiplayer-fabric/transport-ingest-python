@@ -46,8 +46,17 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.7-hb78ec9c_7.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.7.22-hbd8a1cb_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2026c-h151e31d_0.conda
+      - pypi: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/22/5b/06f5e354ed882ce036ed65f2a393c98d0f6c71a23fa64b53251ddeb40a7b/pylsqpack-0.3.24-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/51/ad/2cf6d3fa2fae5c79e1ed9960c0d42badd0f94d81dd12b50604cdc839e648/pyopenssl-26.4.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/6b/72/a1116d683a6d7ece94590013882515de087edf9ef0e6292aae615a44df73/cryptography-50.0.0-cp311-abi3-manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/93/eb/2433e1af4ff903499144de4846569fb3300b816179ae99a03c2f011b666a/service_identity-26.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/96/ec/0dac053c0b7b30dbf03c7dde35aa18f96c44c5108eb99e7ac4411a0cf522/iceoryx2-0.9.3.tar.gz
-      - pypi: https://files.pythonhosted.org/packages/b4/e3/dc6f1549eaabb868b899975a36e777bd11834165c06d3a49a2a371b44fe5/pywebtransport-0.20.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/b1/db/dceb9dd5b231e1da801793f8acc9f3c52a7e1afe40bb1aae37e02b0faad5/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/b9/00/66f9a2f95db35ccbe1d9384d44beae28072fceec6ca0ffa29f6c640516c2/aioquic-1.3.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.7.22-hbd8a1cb_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tzdata-2026c-h151e31d_0.conda
@@ -63,7 +72,16 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/python-3.12.13-hd1323d7_1_cpython.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/readline-8.3-h46df422_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/tk-8.6.13-hd3d0363_3.conda
-      - pypi: https://files.pythonhosted.org/packages/6c/1c/69891e99750cdb6d8b56f2f98179af19208ab9a8564220da2aab8d8c3e4c/pywebtransport-0.20.1-cp312-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/4e/96/f0a7625075394e93db42bd476abb7240ff1a474acd1ad404158baf68dc6a/pylsqpack-0.3.24-cp310-abi3-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/51/ad/2cf6d3fa2fae5c79e1ed9960c0d42badd0f94d81dd12b50604cdc839e648/pyopenssl-26.4.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/54/7d/16e5a096677b5e313ca80cd5e5170efa3ea44624a82bb111925522da64b1/cffi-2.1.1-cp312-cp312-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/93/eb/2433e1af4ff903499144de4846569fb3300b816179ae99a03c2f011b666a/service_identity-26.1.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/9e/ea/ac91850a3e6c915802d8c0ee782f966ddfaeed9f870696c1cdb98b25c9a1/aioquic-1.3.0-cp310-abi3-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/c5/5c/59086b4aac5e879d38ddbcf74e4be7ade89cebc3eb199a55da998c3bb46a/cryptography-50.0.0-cp311-abi3-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/c8/c5/f92b03d8d16ca11c56bec29d617a122b1d8b70cd411e258e794b2eac6c99/iceoryx2-0.9.3-cp38-abi3-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/ca-certificates-2026.7.22-h4c7d964_0.conda
@@ -81,8 +99,17 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/win-64/vc-14.5-ha367084_41.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/vc14_runtime-14.51.36247-habf1de7_41.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/vcomp14-14.51.36247-habf1de7_41.conda
+      - pypi: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/0d/22/adbce7adfb41b8f5f222195f7f4f5e58655aa3e83f525bc5f3882b07d6e8/pylsqpack-0.3.24-cp310-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/32/2e/c9db68a0c4bfa28e310707527c0ee3a2bd254104d2e02e68f368e197aa4c/cryptography-50.0.0-cp311-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/51/ad/2cf6d3fa2fae5c79e1ed9960c0d42badd0f94d81dd12b50604cdc839e648/pyopenssl-26.4.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/75/fb/b95a9769713ddb045c1da1183be3a3c0b92dfad80d13424ca929ec98c70f/iceoryx2-0.9.3-cp38-abi3-win_amd64.whl
-      - pypi: https://files.pythonhosted.org/packages/a0/98/52248ca1851d78c6447766321423a37e5d9d2cd3f79b50c792e1160781ae/pywebtransport-0.20.1-cp312-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/82/45/4e47404984d65ee31cc9e1370f1fbc4e8c92b25da71f61429dbdba437246/aioquic-1.3.0-cp310-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/93/eb/2433e1af4ff903499144de4846569fb3300b816179ae99a03c2f011b666a/service_identity-26.1.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/d9/79/615cc094e2fb508cade7de88d3b4f6c4ec2bab695c97bce9153dc65aadf5/cffi-2.1.1-cp312-cp312-win_amd64.whl
 packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
   build_number: 20
@@ -814,29 +841,79 @@ packages:
     - vcomp14 >=14.51.36247
   size: 155910
   timestamp: 1785359349999
-- pypi: https://files.pythonhosted.org/packages/6c/1c/69891e99750cdb6d8b56f2f98179af19208ab9a8564220da2aab8d8c3e4c/pywebtransport-0.20.1-cp312-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl
-  name: pywebtransport
-  version: 0.20.1
-  sha256: 74025f8709e2e4386d30e0f37ba0ca94679706939f2b51aecd20d9b503ebfc71
+- pypi: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+  name: certifi
+  version: 2026.7.22
+  sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+  requires_python: '>=3.7'
+- pypi: https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl
+  name: pycparser
+  version: '3.0'
+  sha256: b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/0d/22/adbce7adfb41b8f5f222195f7f4f5e58655aa3e83f525bc5f3882b07d6e8/pylsqpack-0.3.24-cp310-abi3-win_amd64.whl
+  name: pylsqpack
+  version: 0.3.24
+  sha256: c3e2327af25ee616ce4483a8748f0957cf017cbca82d58ed15efea68f70f94ff
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/22/5b/06f5e354ed882ce036ed65f2a393c98d0f6c71a23fa64b53251ddeb40a7b/pylsqpack-0.3.24-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  name: pylsqpack
+  version: 0.3.24
+  sha256: 6024854eb16d32803d4890fb90a73b9348c74b61c0770680aefaaa75f8456e8c
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/32/2e/c9db68a0c4bfa28e310707527c0ee3a2bd254104d2e02e68f368e197aa4c/cryptography-50.0.0-cp311-abi3-win_amd64.whl
+  name: cryptography
+  version: 50.0.0
+  sha256: bd1c592e4d5974f0d08d4888e432157adba757c66da0246918e43677fafa2d30
   requires_dist:
-  - black>=26.5.1,<27.0.0 ; extra == 'dev'
-  - flake8>=7.3.0,<8.0.0 ; extra == 'dev'
-  - isort>=8.0.1,<9.0.0 ; extra == 'dev'
-  - maturin[patchelf]>=1.14.1,<2.0 ; extra == 'dev'
-  - mypy>=2.3.0,<3.0.0 ; extra == 'dev'
-  - pywebtransport[test] ; extra == 'dev'
-  - mkdocs>=1.6.1,<2.0.0 ; extra == 'docs'
-  - mkdocs-material>=9.7.7,<10.0.0 ; extra == 'docs'
-  - mkdocstrings[python]>=1.0.6,<2.0.0 ; extra == 'docs'
-  - psutil>=7.2.2,<8.0.0 ; extra == 'test'
-  - pytest>=9.1.1,<10.0.0 ; extra == 'test'
-  - pytest-asyncio>=1.4.0,<2.0.0 ; extra == 'test'
-  - pytest-benchmark>=5.2.3,<6.0.0 ; extra == 'test'
-  - pytest-cov>=7.1.0,<8.0.0 ; extra == 'test'
-  - pytest-mock>=3.15.1,<4.0.0 ; extra == 'test'
-  - types-psutil>=7.2.2.20260518,<8.0.0 ; extra == 'test'
-  - uvloop>=0.22.1,<1.0.0 ; extra == 'test'
-  requires_python: '>=3.12'
+  - cffi>=2.0.0 ; platform_python_implementation != 'PyPy'
+  - typing-extensions>=4.13.2 ; python_full_version < '3.11'
+  - bcrypt>=3.1.5 ; extra == 'ssh'
+  requires_python: '!=3.9.0,>=3.9,!=3.9.1'
+- pypi: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+  name: typing-extensions
+  version: 4.16.0
+  sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/4e/96/f0a7625075394e93db42bd476abb7240ff1a474acd1ad404158baf68dc6a/pylsqpack-0.3.24-cp310-abi3-macosx_11_0_arm64.whl
+  name: pylsqpack
+  version: 0.3.24
+  sha256: e7d956dbc8f7d597b237b9157d0a16bc7c655a1b031239763c18dc8582aff8cc
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/51/ad/2cf6d3fa2fae5c79e1ed9960c0d42badd0f94d81dd12b50604cdc839e648/pyopenssl-26.4.0-py3-none-any.whl
+  name: pyopenssl
+  version: 26.4.0
+  sha256: f0eb0cb2d581d3ad2b9c489468485e7f2ab6727d08401bcf9d824c3caddf3c1c
+  requires_dist:
+  - cryptography>=49.0.0,<51
+  - typing-extensions>=4.9 ; python_full_version < '3.13'
+  - pytest-rerunfailures ; extra == 'test'
+  - pretend ; extra == 'test'
+  - pytest>=3.0.1 ; extra == 'test'
+  - sphinx!=5.2.0,!=5.2.0.post0,!=7.2.5 ; extra == 'docs'
+  - sphinx-rtd-theme ; extra == 'docs'
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/54/7d/16e5a096677b5e313ca80cd5e5170efa3ea44624a82bb111925522da64b1/cffi-2.1.1-cp312-cp312-macosx_11_0_arm64.whl
+  name: cffi
+  version: 2.1.1
+  sha256: f81b3b8f3d4e343550fa4baa0e479bba9f2d29ce9c2e9b51d1ce1718d7442fcf
+  requires_dist:
+  - pycparser ; implementation_name != 'PyPy'
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl
+  name: attrs
+  version: 26.1.0
+  sha256: c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/6b/72/a1116d683a6d7ece94590013882515de087edf9ef0e6292aae615a44df73/cryptography-50.0.0-cp311-abi3-manylinux_2_28_x86_64.whl
+  name: cryptography
+  version: 50.0.0
+  sha256: b42a28c1844fd9de8f3f7d540e36b66f3a9c83fceac7170ebc7a6a19edd9dcae
+  requires_dist:
+  - cffi>=2.0.0 ; platform_python_implementation != 'PyPy'
+  - typing-extensions>=4.13.2 ; python_full_version < '3.11'
+  - bcrypt>=3.1.5 ; extra == 'ssh'
+  requires_python: '!=3.9.0,>=3.9,!=3.9.1'
 - pypi: https://files.pythonhosted.org/packages/75/fb/b95a9769713ddb045c1da1183be3a3c0b92dfad80d13424ca929ec98c70f/iceoryx2-0.9.3-cp38-abi3-win_amd64.whl
   name: iceoryx2
   version: 0.9.3
@@ -844,6 +921,27 @@ packages:
   requires_dist:
   - pytest ; extra == 'test'
   requires_python: '>=3.8,<4.0'
+- pypi: https://files.pythonhosted.org/packages/82/45/4e47404984d65ee31cc9e1370f1fbc4e8c92b25da71f61429dbdba437246/aioquic-1.3.0-cp310-abi3-win_amd64.whl
+  name: aioquic
+  version: 1.3.0
+  sha256: 2d7957ba14a6c5efcc14fdc685ccda7ecf0ad048c410a2bdcad1b63bf9527e8e
+  requires_dist:
+  - certifi
+  - cryptography>=42.0.0
+  - pylsqpack>=0.3.3,<0.4.0
+  - pyopenssl>=24
+  - service-identity>=24.1.0
+  - coverage[toml]>=7.2.2 ; extra == 'dev'
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/93/eb/2433e1af4ff903499144de4846569fb3300b816179ae99a03c2f011b666a/service_identity-26.1.0-py3-none-any.whl
+  name: service-identity
+  version: 26.1.0
+  sha256: 68c32dadbb69135fb951077677e07cd7f6031020f3a8c8f47a28cda8a0742118
+  requires_dist:
+  - attrs>=19.1.0
+  - cryptography>=47
+  - idna ; extra == 'idna'
+  requires_python: '>=3.8'
 - pypi: https://files.pythonhosted.org/packages/96/ec/0dac053c0b7b30dbf03c7dde35aa18f96c44c5108eb99e7ac4411a0cf522/iceoryx2-0.9.3.tar.gz
   name: iceoryx2
   version: 0.9.3
@@ -851,52 +949,46 @@ packages:
   requires_dist:
   - pytest ; extra == 'test'
   requires_python: '>=3.8,<4.0'
-- pypi: https://files.pythonhosted.org/packages/a0/98/52248ca1851d78c6447766321423a37e5d9d2cd3f79b50c792e1160781ae/pywebtransport-0.20.1-cp312-abi3-win_amd64.whl
-  name: pywebtransport
-  version: 0.20.1
-  sha256: 988882fde84554d01f6d98f417d4674150fc63e3c31f76dc2f2bfdd6aadc8df8
+- pypi: https://files.pythonhosted.org/packages/9e/ea/ac91850a3e6c915802d8c0ee782f966ddfaeed9f870696c1cdb98b25c9a1/aioquic-1.3.0-cp310-abi3-macosx_11_0_arm64.whl
+  name: aioquic
+  version: 1.3.0
+  sha256: 48590fa38ec13f01a3d4e44fb3cfd373661094c9c7248f3c54d2d9512b6c3469
   requires_dist:
-  - black>=26.5.1,<27.0.0 ; extra == 'dev'
-  - flake8>=7.3.0,<8.0.0 ; extra == 'dev'
-  - isort>=8.0.1,<9.0.0 ; extra == 'dev'
-  - maturin[patchelf]>=1.14.1,<2.0 ; extra == 'dev'
-  - mypy>=2.3.0,<3.0.0 ; extra == 'dev'
-  - pywebtransport[test] ; extra == 'dev'
-  - mkdocs>=1.6.1,<2.0.0 ; extra == 'docs'
-  - mkdocs-material>=9.7.7,<10.0.0 ; extra == 'docs'
-  - mkdocstrings[python]>=1.0.6,<2.0.0 ; extra == 'docs'
-  - psutil>=7.2.2,<8.0.0 ; extra == 'test'
-  - pytest>=9.1.1,<10.0.0 ; extra == 'test'
-  - pytest-asyncio>=1.4.0,<2.0.0 ; extra == 'test'
-  - pytest-benchmark>=5.2.3,<6.0.0 ; extra == 'test'
-  - pytest-cov>=7.1.0,<8.0.0 ; extra == 'test'
-  - pytest-mock>=3.15.1,<4.0.0 ; extra == 'test'
-  - types-psutil>=7.2.2.20260518,<8.0.0 ; extra == 'test'
-  - uvloop>=0.22.1,<1.0.0 ; extra == 'test'
-  requires_python: '>=3.12'
-- pypi: https://files.pythonhosted.org/packages/b4/e3/dc6f1549eaabb868b899975a36e777bd11834165c06d3a49a2a371b44fe5/pywebtransport-0.20.1.tar.gz
-  name: pywebtransport
-  version: 0.20.1
-  sha256: 570fd1fa08f3cd0c67b4e56fd8ad5ba729d2edb6dbaecebd05184af762e18eea
+  - certifi
+  - cryptography>=42.0.0
+  - pylsqpack>=0.3.3,<0.4.0
+  - pyopenssl>=24
+  - service-identity>=24.1.0
+  - coverage[toml]>=7.2.2 ; extra == 'dev'
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/b1/db/dceb9dd5b231e1da801793f8acc9f3c52a7e1afe40bb1aae37e02b0faad5/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+  name: cffi
+  version: 2.1.1
+  sha256: c1453022f490d2459a11819d83ad1d586e9ff65a12ac3e705ffebd46d3685dcf
   requires_dist:
-  - black>=26.5.1,<27.0.0 ; extra == 'dev'
-  - flake8>=7.3.0,<8.0.0 ; extra == 'dev'
-  - isort>=8.0.1,<9.0.0 ; extra == 'dev'
-  - maturin[patchelf]>=1.14.1,<2.0 ; extra == 'dev'
-  - mypy>=2.3.0,<3.0.0 ; extra == 'dev'
-  - pywebtransport[test] ; extra == 'dev'
-  - mkdocs>=1.6.1,<2.0.0 ; extra == 'docs'
-  - mkdocs-material>=9.7.7,<10.0.0 ; extra == 'docs'
-  - mkdocstrings[python]>=1.0.6,<2.0.0 ; extra == 'docs'
-  - psutil>=7.2.2,<8.0.0 ; extra == 'test'
-  - pytest>=9.1.1,<10.0.0 ; extra == 'test'
-  - pytest-asyncio>=1.4.0,<2.0.0 ; extra == 'test'
-  - pytest-benchmark>=5.2.3,<6.0.0 ; extra == 'test'
-  - pytest-cov>=7.1.0,<8.0.0 ; extra == 'test'
-  - pytest-mock>=3.15.1,<4.0.0 ; extra == 'test'
-  - types-psutil>=7.2.2.20260518,<8.0.0 ; extra == 'test'
-  - uvloop>=0.22.1,<1.0.0 ; extra == 'test'
-  requires_python: '>=3.12'
+  - pycparser ; implementation_name != 'PyPy'
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/b9/00/66f9a2f95db35ccbe1d9384d44beae28072fceec6ca0ffa29f6c640516c2/aioquic-1.3.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
+  name: aioquic
+  version: 1.3.0
+  sha256: 396e5f53f6ddb27713d9b5bb11d8f0f842e42857b7e671c5ae203bf618528550
+  requires_dist:
+  - certifi
+  - cryptography>=42.0.0
+  - pylsqpack>=0.3.3,<0.4.0
+  - pyopenssl>=24
+  - service-identity>=24.1.0
+  - coverage[toml]>=7.2.2 ; extra == 'dev'
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/c5/5c/59086b4aac5e879d38ddbcf74e4be7ade89cebc3eb199a55da998c3bb46a/cryptography-50.0.0-cp311-abi3-macosx_11_0_arm64.whl
+  name: cryptography
+  version: 50.0.0
+  sha256: 031e2d5dd4bb9caa3ca9c82e5a197fd8ae680232cee62603d1a813f3f07e3d03
+  requires_dist:
+  - cffi>=2.0.0 ; platform_python_implementation != 'PyPy'
+  - typing-extensions>=4.13.2 ; python_full_version < '3.11'
+  - bcrypt>=3.1.5 ; extra == 'ssh'
+  requires_python: '!=3.9.0,>=3.9,!=3.9.1'
 - pypi: https://files.pythonhosted.org/packages/c8/c5/f92b03d8d16ca11c56bec29d617a122b1d8b70cd411e258e794b2eac6c99/iceoryx2-0.9.3-cp38-abi3-macosx_11_0_arm64.whl
   name: iceoryx2
   version: 0.9.3
@@ -904,3 +996,10 @@ packages:
   requires_dist:
   - pytest ; extra == 'test'
   requires_python: '>=3.8,<4.0'
+- pypi: https://files.pythonhosted.org/packages/d9/79/615cc094e2fb508cade7de88d3b4f6c4ec2bab695c97bce9153dc65aadf5/cffi-2.1.1-cp312-cp312-win_amd64.whl
+  name: cffi
+  version: 2.1.1
+  sha256: f53e442b08449d42821fa4a4fba000095af9f62742a500f978a9f557ec44339a
+  requires_dist:
+  - pycparser ; implementation_name != 'PyPy'
+  requires_python: '>=3.10'

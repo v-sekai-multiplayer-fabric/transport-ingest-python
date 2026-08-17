@@ -7,3 +7,6 @@ __pycache__/
 # Local test certificates. `pywebtransport` needs an RSA key, these are generated per run, and
 # a self-signed key in git is a key somebody will reuse.
 *.pem
+
+# Finder leaves these on macOS and nobody wants one in a transport repository.
+.DS_Store
