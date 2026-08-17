@@ -48,10 +48,13 @@ so this repository cannot trigger it. Fragmentation upstream of that guard means
 ever reach it, and it logs an error rather than splitting, because arriving there is a bug in the
 batching.
 
-A patch is prepared against aioquic and is not submitted: it discards a datagram no packet can
-hold instead of blocking the queue, and adds `max_datagram_frame_payload_size()` so an application
-can fragment without reading private attributes. Until it lands, `datagram_capacity` derives the
-number from private attributes, which is the fragile part of this repository.
+Reporting it upstream was considered and dropped. The trigger is an application sending a
+datagram larger than a packet, which RFC 9221 already tells applications not to do, so it is
+misuse handling rather than a defect in the protocol, and it is not reachable from peer input.
+What is worth knowing is that quiche exposes `dgram_max_writable_len` and quic-go returns a
+too-large error carrying the size, while aioquic documents no size contract and exposes no way
+to query one. That is why `datagram_capacity` reads private attributes, which is the fragile
+part of this repository.
 
 This also contaminated an earlier measurement here. A binary search over delivery returned 1050
 bytes because one oversized probe jammed the connection and every later size read as lost, which

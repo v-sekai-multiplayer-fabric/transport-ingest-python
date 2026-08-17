@@ -165,9 +165,9 @@ class WardProtocol(QuicConnectionProtocol):
         varint, minus the quarter-stream-id varint HTTP/3 puts in front of the payload.
 
         aioquic 1.3.0 exposes no public equivalent, so the fallback reads private attributes.
-        RFC 9221 makes sizing the application's responsibility while giving it no way to learn
-        the size, which is the gap the upstream patch in `OPEN_GAPS.md` closes. When that lands,
-        the first branch is the whole method and the rest can go.
+        RFC 9221 makes sizing the application's responsibility and gives it no way to learn the
+        size, which quiche answers with `dgram_max_writable_len` and quic-go with the size on
+        its too-large error. The first branch is for an aioquic that grows the same thing.
         """
         quic = self._quic
         public = getattr(quic, "max_datagram_frame_payload_size", None)
