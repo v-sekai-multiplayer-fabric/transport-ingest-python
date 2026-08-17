@@ -43,10 +43,18 @@ Measured: after one 6400-byte send, three subsequent 100-byte datagrams never ar
 pending queue only grew, from one entry to three. One bad send does not lose one message, it ends
 that session's datagram path.
 
-`WardProtocol.send_datagram` refuses anything over `DATAGRAM_MAX_BYTES` rather than queueing it,
-so this repository cannot trigger it. That guard is the whole mitigation. Nothing upstream stops
-another caller reaching `H3Connection.send_datagram` directly, and the failure is silent from the
-sender's side.
+`WardProtocol.send_datagram` refuses anything over the derived capacity rather than queueing it,
+so this repository cannot trigger it. Fragmentation upstream of that guard means nothing should
+ever reach it, and it logs an error rather than splitting, because arriving there is a bug in the
+batching.
+
+Reporting it upstream was considered and dropped. The trigger is an application sending a
+datagram larger than a packet, which RFC 9221 already tells applications not to do, so it is
+misuse handling rather than a defect in the protocol, and it is not reachable from peer input.
+What is worth knowing is that quiche exposes `dgram_max_writable_len` and quic-go returns a
+too-large error carrying the size, while aioquic documents no size contract and exposes no way
+to query one. That is why `datagram_capacity` reads private attributes, which is the fragile
+part of this repository.
 
 This also contaminated an earlier measurement here. A binary search over delivery returned 1050
 bytes because one oversized probe jammed the connection and every later size read as lost, which

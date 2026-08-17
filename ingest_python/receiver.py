@@ -26,6 +26,7 @@ import sys
 from pathlib import Path
 
 from aioquic.asyncio import QuicConnectionProtocol, serve
+from aioquic.buffer import size_uint_var
 from aioquic.h3.connection import H3_ALPN, H3Connection
 from aioquic.h3.events import DatagramReceived, H3Event, HeadersReceived
 from aioquic.quic.configuration import QuicConfiguration
@@ -40,16 +41,20 @@ from ingest_python.bus import Bus  # noqa: E402
 # The path the Extended CONNECT names.
 WT_PATH = "/ward"
 
-# The largest datagram this stack delivers, measured rather than assumed: 1169 bytes on a
-# loopback session, with 1170 the first size that fails. A DATAGRAM frame has to fit inside one
-# QUIC packet, and aioquic's packet size is 1200, so the headroom is the packet header, the
-# frame header, the session-id varint and the AEAD tag.
+# RFC 9221: "DATAGRAM frames cannot be fragmented; therefore, application protocols need to
+# handle cases where the maximum datagram size is limited by other factors." Fragmenting is this
+# repository's job, and the size it fragments against is a property of the live connection rather
+# than a constant: the RFC notes the limit "can be further reduced by the max_udp_payload_size
+# transport parameter and the Maximum Transmission Unit (MTU) of the path".
 #
-# transport-fanout caps a slice at 64 records and says 6400 bytes is "comfortably inside one
-# message". It is five QUIC packets. The previous stack refused anything over 1161 bytes, so two
-# implementations that share no code agree the answer is 11 records. See OPEN_GAPS.md.
-DATAGRAM_MAX_BYTES = 1169
-RECORDS_PER_DATAGRAM = DATAGRAM_MAX_BYTES // wire.SIZE
+# So `datagram_capacity` derives it per batch. This floor is only what a caller gets before a
+# connection exists, and it is the QUIC minimum of 1200 with the same overheads removed.
+DATAGRAM_FLOOR_BYTES = 1169
+
+# The AEAD tag on every QUIC packet, and the ONE_RTT short header, which is one byte of flags
+# plus the destination connection id plus a two-byte packet number.
+AEAD_TAG_BYTES = 16
+SHORT_HEADER_FIXED_BYTES = 3
 
 POLL_SECONDS = 0.001
 
@@ -86,12 +91,18 @@ def split(payload: bytes, counters: Counters) -> list[bytes]:
     return records
 
 
-def batch(records: list[bytes], *, per_datagram: int = RECORDS_PER_DATAGRAM) -> list[bytes]:
-    """Pack records into datagram-sized writes, back to back and with no framing.
+def batch(records: list[bytes], *, capacity: int) -> list[bytes]:
+    """Fragment records into datagram-sized writes, back to back and with no framing.
 
-    The receiver recovers the count by division, so a batch carries whole records only. This is
-    where a 64-record slice becomes six datagrams rather than one.
+    This is the fragmentation RFC 9221 requires of the application, and the whole reason it can
+    be done here rather than in QUIC is that a slice has no header. Every fragment is a run of
+    whole records and decodes on its own by dividing its length, so a lost fragment costs the
+    entities it carried and nothing else. There is no reassembly and no sequence to keep.
+
+    A record longer than one datagram would be unfragmentable, and cannot arise: a record is
+    `wire.SIZE` bytes and the capacity floor is more than eleven of them.
     """
+    per_datagram = max(1, capacity // wire.SIZE)
     return [b"".join(records[i : i + per_datagram]) for i in range(0, len(records), per_datagram)]
 
 
@@ -143,25 +154,65 @@ class WardProtocol(QuicConnectionProtocol):
                 # exactly what the wire carries: back-to-back records, count recovered by division.
                 self._bus.publish(b"".join(records))
 
+    def datagram_capacity(self, session_id: int) -> int:
+        """The largest WebTransport datagram payload this connection carries right now.
+
+        Derived rather than measured, and recomputed per batch, because both terms move: path
+        MTU discovery changes the packet size, and a connection id rotation changes the header.
+
+        A DATAGRAM frame has to fit in one QUIC packet, so the room is the packet minus the
+        short header and the AEAD tag, minus the frame type byte, minus the frame's own length
+        varint, minus the quarter-stream-id varint HTTP/3 puts in front of the payload.
+
+        aioquic 1.3.0 exposes no public equivalent, so the fallback reads private attributes.
+        RFC 9221 makes sizing the application's responsibility and gives it no way to learn the
+        size, which quiche answers with `dgram_max_writable_len` and quic-go with the size on
+        its too-large error. The first branch is for an aioquic that grows the same thing.
+        """
+        quic = self._quic
+        public = getattr(quic, "max_datagram_frame_payload_size", None)
+        if callable(public):
+            # The QUIC layer reports its own frame payload; HTTP/3 spends a quarter-stream-id
+            # varint of that on every WebTransport datagram.
+            return max(0, public() - size_uint_var(session_id // 4))
+
+        packet = getattr(quic, "_max_datagram_size", None)
+        peer_cid = getattr(quic, "_peer_cid", None)
+        if packet is None or peer_cid is None:
+            return DATAGRAM_FLOOR_BYTES
+
+        space = packet - (SHORT_HEADER_FIXED_BYTES + len(peer_cid.cid)) - AEAD_TAG_BYTES
+        quarter = size_uint_var(session_id // 4)
+        payload = space - 1 - quarter
+        payload -= size_uint_var(payload + quarter)
+
+        remote_frame_max = getattr(quic, "_remote_max_datagram_frame_size", None)
+        if remote_frame_max is not None:
+            payload = min(payload, remote_frame_max - 1 - quarter)
+
+        return max(0, payload)
+
     def send_datagram(self, session_id: int, payload: bytes) -> None:
         """Refuse an oversized datagram rather than queue it.
 
-        This guard is load-bearing. aioquic's `_write_datagram_frame` asks the packet builder for
-        room and, when the frame cannot fit, the caller breaks out of the send loop *without*
-        popping the queue. The oversized datagram therefore stays at the head forever and every
-        later datagram on that session is lost behind it -- measured: after one 6400-byte send,
-        three subsequent 100-byte datagrams never arrived and the pending queue only grew.
+        Fragmentation upstream of this should mean nothing ever trips the guard, which is why it
+        logs an error rather than splitting: reaching here is a bug in the batching, and silently
+        repairing it would hide that.
 
-        So one bad send does not lose one message, it ends the session's datagram path. Refusing
-        here keeps that impossible.
+        The guard is load-bearing all the same. aioquic's `_write_datagram_frame` asks the packet
+        builder for room and, when the frame cannot fit, the caller breaks out of the send loop
+        *without* popping the queue, so the datagram stays at the head forever and every later
+        datagram on that session is lost behind it. One bad send would not lose one message, it
+        would end the session's datagram path.
         """
         assert self._http is not None
-        if len(payload) > DATAGRAM_MAX_BYTES:
+        capacity = self.datagram_capacity(session_id)
+        if len(payload) > capacity:
             self._counters.oversized += 1
             _log.error(
-                "refused a %d-byte datagram, cap is %d; queueing it would jam every datagram after it",
+                "refused a %d-byte datagram, capacity is %d; queueing it would jam the session",
                 len(payload),
-                DATAGRAM_MAX_BYTES,
+                capacity,
             )
             return
         self._http.send_datagram(stream_id=session_id, data=payload)
@@ -176,7 +227,7 @@ class WardProtocol(QuicConnectionProtocol):
                 continue
 
             records = split(outgoing, Counters())
-            for one in batch(records):
+            for one in batch(records, capacity=self.datagram_capacity(session_id)):
                 self.send_datagram(session_id, one)
 
 
