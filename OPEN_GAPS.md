@@ -43,10 +43,15 @@ Measured: after one 6400-byte send, three subsequent 100-byte datagrams never ar
 pending queue only grew, from one entry to three. One bad send does not lose one message, it ends
 that session's datagram path.
 
-`WardProtocol.send_datagram` refuses anything over `DATAGRAM_MAX_BYTES` rather than queueing it,
-so this repository cannot trigger it. That guard is the whole mitigation. Nothing upstream stops
-another caller reaching `H3Connection.send_datagram` directly, and the failure is silent from the
-sender's side.
+`WardProtocol.send_datagram` refuses anything over the derived capacity rather than queueing it,
+so this repository cannot trigger it. Fragmentation upstream of that guard means nothing should
+ever reach it, and it logs an error rather than splitting, because arriving there is a bug in the
+batching.
+
+A patch is prepared against aioquic and is not submitted: it discards a datagram no packet can
+hold instead of blocking the queue, and adds `max_datagram_frame_payload_size()` so an application
+can fragment without reading private attributes. Until it lands, `datagram_capacity` derives the
+number from private attributes, which is the fragile part of this repository.
 
 This also contaminated an earlier measurement here. A binary search over delivery returned 1050
 bytes because one oversized probe jammed the connection and every later size read as lost, which

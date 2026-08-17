@@ -61,3 +61,12 @@ Decisions and completed, verified work.
 
 - `pywebtransport` rejected EC P-256 and P-384 server keys while `contract-wt` records the Godot
   demo server generating P-256. `OPEN_GAPS.md` records it closed.
+
+### Changed
+
+- Fragmentation derives the datagram size from the live connection rather than holding the
+  measured 1169. RFC 9221 makes fragmenting the application's job and notes the limit moves with
+  `max_udp_payload_size` and path MTU, so a constant is wrong on any other path. The derivation
+  reproduces the measurement exactly: 1169 derived, 1169 delivered, 1170 lost.
+- A 64-record slice now fragments into six datagrams which reassemble byte-identically, verified
+  end to end rather than by unit test alone.
