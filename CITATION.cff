@@ -1,0 +1,101 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "transport-ingest-python: the fabric's unreliable WebTransport half, implemented a second time"
+abstract: >
+  A second implementation of the unreliable half of the V-Sekai multiplayer fabric's
+  WebTransport contract, on pywebtransport rather than picoquic. It carries QUIC
+  datagrams of back-to-back 100-byte entity records with no framing, recovers the
+  count by division, drops a datagram whose length is not a multiple of the record
+  size, and hands the records off over the iceoryx2 ring. It exists to disagree
+  with transport-ingest-c where one of the two is wrong about the contract, which a
+  single implementation cannot reveal, and it carries no player traffic.
+authors:
+  - family-names: Lee
+    given-names: "K. S. Ernest (iFire)"
+    email: ernest.lee@chibifire.com
+    orcid: "https://orcid.org/0000-0003-4570-1436"
+version: 0.1.0-dev.1
+date-released: "2026-08-17"
+license: MIT
+repository-code: "https://github.com/v-sekai-multiplayer-fabric/transport-ingest-python"
+keywords:
+  - webtransport
+  - http3
+  - quic
+  - iceoryx2
+  - interoperability
+  - conformance
+
+# What this is built on. A second implementation is defined by what it refuses to read as much
+# as by what it depends on, so the contract repositories are listed beside the libraries: the
+# specifications are the input, and the C implementation is deliberately not one.
+references:
+  - type: software
+    title: "pywebtransport: an async-native WebTransport stack for Python"
+    authors:
+      - name: "The pywebtransport authors"
+    year: 2026
+    version: 0.20.1
+    license: Apache-2.0
+    url: "https://github.com/wtransport/pywebtransport"
+    notes: >
+      The QUIC and HTTP/3 stack this terminates on. Its core is Rust and shares no
+      code with picoquic, which is the property that makes this a second opinion
+      rather than a second copy.
+
+  - type: software
+    title: "Eclipse iceoryx2: lock-free zero-copy inter-process communication"
+    authors:
+      - name: "Eclipse iceoryx2 contributors"
+    year: 2026
+    version: 0.9.3
+    license: Apache-2.0
+    url: "https://github.com/eclipse-iceoryx/iceoryx2"
+    notes: >
+      The ring. Reached here through the prebuilt Python wheel rather than the
+      dlsym stub table the C repositories generate from iceoryx2.sigs; RFD 0123
+      records that departure.
+
+  - type: software
+    title: "contract-entity-packet: the 100-byte integral entity wire packet, proved"
+    authors:
+      - family-names: Lee
+        given-names: "K. S. Ernest (iFire)"
+        orcid: "https://orcid.org/0000-0003-4570-1436"
+    year: 2026
+    url: "https://github.com/v-sekai-multiplayer-fabric/lean-entity-packet"
+    notes: >
+      The layout, the golden vectors, and the emitter that writes gen/. The reason
+      no file here carries a field offset.
+
+  - type: software
+    title: "contract-wt: the second opinion, in aioquic"
+    authors:
+      - family-names: Lee
+        given-names: "K. S. Ernest (iFire)"
+        orcid: "https://orcid.org/0000-0003-4570-1436"
+    year: 2026
+    url: "https://github.com/v-sekai-multiplayer-fabric/contract-wt"
+    notes: >
+      The same argument one stack earlier. It checks the engine's H3/WT from the
+      RFCs on aioquic, and its roster client is what a live cross-test here uses.
+
+  - type: standard
+    title: "RFC 9297: HTTP Datagrams and the Capsule Protocol"
+    authors:
+      - family-names: Schinazi
+        given-names: David
+      - family-names: Pauly
+        given-names: Tommy
+    year: 2022
+    url: "https://www.rfc-editor.org/rfc/rfc9297.html"
+    notes: "Read instead of the C implementation, which is the point."
+
+  - type: standard
+    title: "RFC 9114: HTTP/3"
+    authors:
+      - family-names: Bishop
+        given-names: Mike
+    year: 2022
+    url: "https://www.rfc-editor.org/rfc/rfc9114.html"
+    notes: "The Extended CONNECT this terminates."

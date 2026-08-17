@@ -1,0 +1,26 @@
+[workspace]
+name = "transport-ingest-python"
+version = "0.1.0"
+description = "A second implementation of the unreliable half of the fabric's WebTransport contract, on pywebtransport, checked against the golden vectors contract-entity-packet emits."
+channels = ["conda-forge"]
+# The three platforms this is developed and built on. iceoryx2 is shared memory, so a run needs
+# a machine rather than a cluster; these are the machines.
+platforms = ["osx-arm64", "linux-64", "win-64"]
+
+[dependencies]
+# pywebtransport 0.20.1 requires 3.12 or newer. Pinning the minor keeps `pixi run` identical
+# here and in CI, which is the whole reason the tasks below are the CI entry points.
+python = "3.12.*"
+
+[pypi-dependencies]
+# Both carry a Rust core and ship binary wheels for every platform above, so neither is built
+# from source and no Rust toolchain is required. RFD 0123 records why a wheel is acceptable
+# where the C repositories dlopen iceoryx2 through a generated stub table instead.
+pywebtransport = "==0.20.1"
+iceoryx2 = "==0.9.3"
+
+[tasks]
+# CI entry points. The workflow calls these so local and CI run the same commands.
+check = "python conformance.py"
+selftest = "python conformance.py --self-test"
+serve = "python -m ingest_python.receiver --cert cert.pem --key key.pem"

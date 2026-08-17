@@ -1,0 +1,9 @@
+# pixi's environment and Python's bytecode cache. Neither is a decision, and both are rebuilt
+# by `pixi run`.
+.pixi/
+__pycache__/
+*.pyc
+
+# Local test certificates. `pywebtransport` needs an RSA key, these are generated per run, and
+# a self-signed key in git is a key somebody will reuse.
+*.pem

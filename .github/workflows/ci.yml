@@ -1,0 +1,28 @@
+# Run the conformance gate, and prove it can fail. This repository's only output is agreement
+# or disagreement with transport-ingest-c, so a green run that never exercised the vectors
+# would be the one failure mode that matters: a check nobody has seen fail certifies nothing.
+name: ci
+
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  conformance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: prefix-dev/setup-pixi@v0.9.1
+        with:
+          cache: true
+      - name: The gate
+        run: pixi run check
+      - name: The negative control
+        run: pixi run selftest
